@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}首页 - 库存同步系统{% endblock %}
+{% block content %}
+<h2>多店铺库存同步系统</h2>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">{{ shops|length }}</h5>
+                <p class="card-text">已绑定店铺</p>
+                <a href="/shops" class="btn btn-sm btn-outline-primary">管理店铺</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">{{ mappings|length }}</h5>
+                <p class="card-text">商品映射</p>
+                <a href="/mappings" class="btn btn-sm btn-outline-primary">管理映射</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">同步日志</h5>
+                <p class="card-text">查看同步记录</p>
+                <a href="/logs" class="btn btn-sm btn-outline-primary">查看日志</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
