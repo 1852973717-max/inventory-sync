@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}同步日志 - 库存同步系统{% endblock %}
+{% block content %}
+<h2>同步日志</h2>
+<hr>
+<table class="table table-bordered table-sm">
+    <thead>
+        <tr>
+            <th>时间</th>
+            <th>订单号</th>
+            <th>源店铺</th>
+            <th>目标店铺</th>
+            <th>内部SKU</th>
+            <th>数量</th>
+            <th>状态</th>
+            <th>错误信息</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for log in logs %}
+        <tr class="{{ 'table-success' if log.status == 'success' else 'table-danger' }}">
+            <td>{{ log.created_at }}</td>
+            <td>{{ log.order_id }}</td>
+            <td>{{ log.source_shop }}</td>
+            <td>{{ log.target_shop or '-' }}</td>
+            <td>{{ log.internal_sku or '-' }}</td>
+            <td>{{ log.quantity }}</td>
+            <td>{{ log.status }}</td>
+            <td>{{ log.error_msg or '-' }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
