@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}商品映射 - 库存同步系统{% endblock %}
+{% block content %}
+<h2>商品映射</h2>
+<hr>
+<h4>添加映射</h4>
+<form action="/mapping/add" method="POST" class="row g-2 mb-4">
+    <div class="col-md-2">
+        <input type="text" name="internal_sku" class="form-control" placeholder="内部SKU码" required>
+    </div>
+    <div class="col-md-2">
+        <select name="shop_id" class="form-select" required>
+            <option value="">选择店铺</option>
+            {% for shop in shops %}
+            <option value="{{ shop.id }}">{{ shop.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <input type="text" name="item_id" class="form-control" placeholder="淘宝商品ID" required>
+    </div>
+    <div class="col-md-2">
+        <input type="text" name="sku_id" class="form-control" placeholder="SKU ID（可选）">
+    </div>
+    <div class="col-md-2">
+        <input type="number" name="quantity" class="form-control" placeholder="当前库存" value="0" required>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">添加</button>
+    </div>
+</form>
+
+<h4>映射列表</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>内部SKU</th>
+            <th>店铺</th>
+            <th>商品ID</th>
+            <th>SKU ID</th>
+            <th>库存</th>
+            <th>最后同步</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for mapping, shop_name in mappings %}
+        <tr>
+            <td>{{ mapping.id }}</td>
+            <td>{{ mapping.internal_sku }}</td>
+            <td>{{ shop_name }}</td>
+            <td>{{ mapping.item_id }}</td>
+            <td>{{ mapping.sku_id or '-' }}</td>
+            <td>{{ mapping.quantity }}</td>
+            <td>{{ mapping.last_sync or '未同步' }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
